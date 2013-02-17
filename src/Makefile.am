@@ -29,6 +29,7 @@ fatcache_SOURCES =			\
 	fc_log.c fc_log.h		\
 	fc_string.c fc_string.h		\
 	fc_array.c fc_array.h		\
+        fc_aio.c fc_aio.h               \
 	fc_util.c fc_util.h		\
 	fc_queue.h			\
 	fc.c
