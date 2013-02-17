@@ -27,6 +27,8 @@ int event_add_out(int ep, struct conn *c);
 int event_del_out(int ep, struct conn *c);
 int event_add_conn(int ep, struct conn *c);
 int event_del_conn(int ep, struct conn *c);
+int event_del_aio(int ep, int aiofd);
+
 
 int event_wait(int ep, struct epoll_event *event, int nevent, int timeout);
 

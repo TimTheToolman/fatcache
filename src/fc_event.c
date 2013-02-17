@@ -175,6 +175,28 @@ event_del_conn(int ep, struct conn *c)
     return status;
 }
 
+int 
+event_add_aio(int ep, int aiofd){
+	int status;
+	struct epoll_event event;
+
+	event.events = (uint32_t)(EPOLLIN | EPOLLET);
+	event.data.fd = aiofd;
+
+	status = epoll_ctl(ep, EPOLL_CTL_ADD, aiofd, &event);
+
+	return status;
+}
+
+int
+event_del_aio(int ep, int aiofd){
+    int status;
+    
+    status = epoll_ctl(ep, EPOLL_CTL_DEL, aiofd, NULL);
+
+    return status;
+}
+
 int
 event_wait(int ep, struct epoll_event *event, int nevent, int timeout)
 {

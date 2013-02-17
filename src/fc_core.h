@@ -114,7 +114,9 @@ struct slabclass;
 #include <fc_signal.h>
 
 struct context {
-    int		       aio_fd;	    /*aio fd */
+    int		       aio_fd;	    /* aio fd */
+    struct io_event    *aio_event;  /* aio event */
+    int 	       naio_event;  /* # aio event */
     int                ep;          /* epoll device */
     int                nevent;      /* # epoll event */
     int                max_timeout; /* epoll wait max timeout in msec */
