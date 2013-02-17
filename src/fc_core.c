@@ -138,7 +138,7 @@ core_error(struct context *ctx, struct conn *conn)
 }
 
 static void
-core_core(struct context *ctx, struct conn *conn, uint32_t events)
+core_conn(struct context *ctx, struct conn *conn, uint32_t events)
 {
     rstatus_t status;
 
@@ -168,6 +168,12 @@ core_core(struct context *ctx, struct conn *conn, uint32_t events)
             return;
         }
     }
+}
+
+
+static void 
+core_diskio(struct context *ctx, aio_callback_t cb, uint32_t events){
+	
 }
 
 rstatus_t
@@ -211,8 +217,12 @@ core_loop(struct context *ctx)
 
     for (i = 0; i < nsd; i++) {
         struct epoll_event *ev = &ctx->event[i];
-
-        core_core(ctx, ev->data.ptr, ev->events);
+	
+	if(ev->data.fd != ctx->aio_fd){	
+        	core_conn(ctx, ev->data.ptr, ev->events);
+    	}else{
+		
+	}
     }
 
     return FC_OK;
