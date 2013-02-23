@@ -1,23 +1,21 @@
 #include <fc_aio.h>
-
-
-static io_context_t aio_ctx;
-
-int aio_fd;
+#include <fc_event.h>
 
 int aio_init(struct context *ctx){
-		
+	int ret;	
 	struct io_event *event;
 
 	aio_fd = eventfd(0, EFD_NONBLOCK);
 	event = fc_calloc(5, sizeof(*ctx->aio_event));
 
-	io_setup(5, aio_ctx);
+	ret = io_setup(5, &aio_ctx);
 	
 	ctx->aio_fd = aio_fd;
 	ctx->aio_event = event;
-
-	return 0;
+	
+	event_add_aio(ctx->ep, ctx->aio_fd);
+	
+	return ret;
 }
 
 int aio_write(int fd, void *buffer, size_t length, off_t offset, aio_callback_t cb){

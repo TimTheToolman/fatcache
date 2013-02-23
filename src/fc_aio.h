@@ -6,8 +6,13 @@
 #include <stdlib.h>
 #include <sys/signalfd.h>
 #include <sys/eventfd.h>
-
 #include <fc_core.h>
+#include <fc_event.h>
+
+
+io_context_t aio_ctx;
+
+int aio_fd;
 
 typedef void (*aio_callback_t)(void *data);
 

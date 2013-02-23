@@ -170,7 +170,6 @@ core_conn(struct context *ctx, struct conn *conn, uint32_t events)
     }
 }
 
-
 static void 
 core_diskio(struct context *ctx, struct epoll_event *ev){
 	aio_events(ev, ctx);
@@ -196,14 +195,11 @@ core_start(struct context *ctx)
     if (status != FC_OK) {
         return status;
     }
-    event_add_aio(ctx->ep, ctx->aio_fd);
 
     status = server_listen(ctx);
     if (status != FC_OK) {
         return status;
     }
-
-
 
     return FC_OK;
 }
